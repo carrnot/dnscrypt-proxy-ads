@@ -22,6 +22,8 @@ jobs:
     
     - name: build acl
       run: |
+        curl -L https://raw.githubusercontent.com/privacy-protection-tools/dead-horse/master/anti-ad-white-list.txt >> domains-allowlist.txt
+
         mkdir tmp
         chmod 777 generate-domains-blocklist.py
         ./generate-domains-blocklist.py > tmp/blocked-names.txt
