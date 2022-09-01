@@ -1,4 +1,4 @@
-name: shadowsocks-acl
+name: dnscrypt-proxy-ads
 
 on:
   workflow_dispatch:
