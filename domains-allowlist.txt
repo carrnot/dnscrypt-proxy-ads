@@ -76,4 +76,3 @@ windows.net
 youtu.be
 accounts.google.com
 ib.snssdk.com
-*dnsotls-ds.metric.gstatic.com*
