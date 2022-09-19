@@ -6,36 +6,35 @@ on:
     - cron: "*/360 * * * *"
   push:
     branches: [ "main" ]
-    paths-ignore: ["**/README.md"]
+    paths-ignore: [ "**/README.md" ]
 
 jobs:
+
   build:
-
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up Python 3.10
-      uses: actions/setup-python@v3
-      with:
-        python-version: "3.10"
-    
-    - name: build acl
-      run: |
-        mkdir tmp
-        chmod 777 generate-domains-blocklist.py
-        ./generate-domains-blocklist.py > tmp/blocked-names.txt
-        
-    - name: Git push assets to "release" branch
-      run: |
-        cd tmp || exit 1
-        git config --global init.defaultBranch main
-        git init
-        git config --local user.name "github-actions"
-        git config --local user.email "github-actions@github.com"
-        git checkout -b release
-        git add --all
-        git commit -m "sync"
-        git remote add dnscrypt-proxy-ads "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}"
-        git push -f dnscrypt-proxy-ads release
+      - uses: actions/checkout@v3
+
+      - name: Set up Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: 1.19
+
+      - name: build acl
+        run: |
+          mkdir release
+          go run main.go > release/blocked-names.txt
+
+      - name: Git push assets to "release" branch
+        run: |
+          cd release || exit 1
+          git config --global init.defaultBranch main
+          git init
+          git config --local user.name "github-actions"
+          git config --local user.email "github-actions@github.com"
+          git checkout -b release
+          git add --all
+          git commit -m "sync"
+          git remote add dnscrypt-proxy-ads "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}"
+          git push -f dnscrypt-proxy-ads release
         

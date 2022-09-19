@@ -5,4 +5,4 @@ https://raw.githubusercontent.com/carrnot/dnscrypt-proxy-ads/release/blocked-nam
 
 ## Credits
 
-* [https://github.com/DNSCrypt/dnscrypt-proxy](https://github.com/DNSCrypt/dnscrypt-proxy/tree/master/utils/generate-domains-blocklist)
+* [https://github.com/bigdargon/hostsVN](https://github.com/bigdargon/hostsVN)
